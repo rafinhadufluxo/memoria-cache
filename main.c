@@ -20,7 +20,7 @@ typedef struct linha
     int alterado; 
     int rotulo;
     int valido;
-    int pol_substituicao;//marca a linha q sera substituida pela FIFO - valor 4-100 sera substituido
+    int pol_substituicao;//marca a linha q sera substituida pela FIFO 
 } linha;
 
 typedef struct bloco
@@ -29,15 +29,8 @@ typedef struct bloco
 } bloco;
 
 
-//bits= numero de bits
-//num= binario
-//decimal= numero em decimal
-//inicial= valor que diz em qual bit esta
-
-
 //Binario para decimal
-int dec(int bits, char num[bits], int inicial)
-{
+int dec(int bits, char num[bits], int inicial){
     int cont = 0;
     for (int i = bits - 1; i >= 0; i--)
     {
