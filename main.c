@@ -1,3 +1,14 @@
+/*  
+*   Acadêmicos: Geovano Lago e Rafa Arruda 
+*/
+
+/*
+* algumas observações
+*  bits= numero de bits
+*  num= binario
+*  decimal= numero em decimal
+*  inicial= valor que diz em qual bit esta
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,8 +20,7 @@ typedef struct linha
     int alterado; 
     int rotulo;
     int valido;
-    //int frequencia;
-    int pol_sub;//marca a linha q sera substituida pela FIFO - valor 4-100 sera substituido
+    int pol_substituicao;//marca a linha q sera substituida pela FIFO - valor 4-100 sera substituido
 } linha;
 
 typedef struct bloco
@@ -78,9 +88,9 @@ void print_memoria(struct bloco vetor_bloco[32], struct linha vetor_linha[8])
     {
         if (vetor_linha[k].valido == 1)
         {
-            if (vetor_linha[k].pol_sub > maior_val)
+            if (vetor_linha[k].pol_substituicao > maior_val)
             {
-                maior_val = vetor_linha[k].pol_sub;
+                maior_val = vetor_linha[k].pol_substituicao;
             }
         }
         
@@ -98,7 +108,7 @@ void print_memoria(struct bloco vetor_bloco[32], struct linha vetor_linha[8])
             if (vetor_linha[i].valido == 0)
                 printf("--- | | ");
             else{
-               if(vetor_linha[i].pol_sub == maior_val){
+               if(vetor_linha[i].pol_substituicao == maior_val){
                    printf(" 1  | | ");
                    prox = i;
                }
@@ -253,7 +263,7 @@ void memoria_cache(struct bloco vetor_bloco[32], struct linha vetor_linha[8], do
             {
                 if (vetor_linha[k].valido == 1)
                 {
-                    vetor_linha[k].pol_sub++;
+                    vetor_linha[k].pol_substituicao++;
                 }
                 
             }
@@ -261,7 +271,7 @@ void memoria_cache(struct bloco vetor_bloco[32], struct linha vetor_linha[8], do
             vetor_linha[int_linha].valido = 1;
             vetor_linha[int_linha].rotulo = int_rotulo;
             vetor_linha[int_linha].alterado = 0;
-            vetor_linha[int_linha].pol_sub = 0;
+            vetor_linha[int_linha].pol_substituicao = 0;
 
             printf("Bloco: ");
             bin(bloc, 5);
@@ -273,7 +283,7 @@ void memoria_cache(struct bloco vetor_bloco[32], struct linha vetor_linha[8], do
         }
         else{
             for(int i = 0; i < 8; i++){
-                if (vetor_linha[i].pol_sub == 7){//FIFO
+                if (vetor_linha[i].pol_substituicao == 7){//FIFO
                         
                         
                     for (int j = 0; j < 4; j++)
@@ -288,14 +298,14 @@ void memoria_cache(struct bloco vetor_bloco[32], struct linha vetor_linha[8], do
                     {
                     if (vetor_linha[k].valido == 1)
                     {
-                        vetor_linha[k].pol_sub++;
+                        vetor_linha[k].pol_substituicao++;
                     }
                     
                     }
                     
                     vetor_linha[i].alterado = 0;
                     vetor_linha[i].valido = 1;
-                    vetor_linha[i].pol_sub = 0;
+                    vetor_linha[i].pol_substituicao = 0;
                     vetor_linha[i].rotulo = int_rotulo;
                     
 
@@ -378,7 +388,7 @@ void memoria_cache(struct bloco vetor_bloco[32], struct linha vetor_linha[8], do
             }
             else{
                 for(int i = 0; i < 8; i++){
-                    if (vetor_linha[i].pol_sub == 7){//FIFO
+                    if (vetor_linha[i].pol_substituicao == 7){//FIFO
                             
                             
                         for (int j = 0; j < 4; j++)
@@ -393,13 +403,13 @@ void memoria_cache(struct bloco vetor_bloco[32], struct linha vetor_linha[8], do
                         {
                             if (vetor_linha[k].valido == 1)
                             {
-                                vetor_linha[k].pol_sub++;
+                                vetor_linha[k].pol_substituicao++;
                             }
                         
                         }
                         
                         vetor_linha[i].valido = 1;
-                        vetor_linha[i].pol_sub = 0;
+                        vetor_linha[i].pol_substituicao = 0;
                         vetor_linha[i].rotulo = int_rotulo;
                         vetor_linha[i].desloc_linha[int_deslocamento] = int_dado;
                         vetor_linha[i].alterado = 1;
@@ -416,8 +426,7 @@ void memoria_cache(struct bloco vetor_bloco[32], struct linha vetor_linha[8], do
     
 }
 
-int main()
-{
+int main(){
     struct linha vetor_linha[8];
     struct bloco vetor_bloco[32];
     double porc, acertos_leitura[1] = {0}, acertos_escrita[1] = {0}, faltas_leitura[1] = {0}, faltas_escrita[1] = {0};
