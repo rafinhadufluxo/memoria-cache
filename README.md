@@ -21,6 +21,13 @@ com a política definida), além de um menu que de acesso às seguintes operaç�
 para as três situações: leitura, escrita e geral;
 - encerrar o programa.
 
+Para compilar use este comando:
+```
+$ gcc main.c 
+$ ./a.out 
+```
+
+OBSERVAÇÃO: A entrada deve iniciar com um numero decimal, logo o programa converte para binário e segue a linha de instruções exigidas neste trabalho.
 ## Referências
 
 * [Algoritmos de substituição - Memória cache - FIFO - LRU - LFU](https://www.youtube.com/watch?v=vVK6ffd9Aw4&t=3s) 
